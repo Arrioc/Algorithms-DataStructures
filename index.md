@@ -394,7 +394,7 @@
 &nbsp;
 &nbsp;
 
-  * References
+  * **References**
    * ###### Chodorow, K. (2013). _Mongo DB: The definitive guide (2nd ed.)._ O’Reilly Media, Inc. https://www.oreilly.com/library/view/mongodb-the-definitive/9781449344795/
 
    * ###### Downey, A. (2015). _Think python: How to think like a computer scientist_ (2nd ed.). Green Tea Press. https://greenteapress.com/thinkpython2/html/
