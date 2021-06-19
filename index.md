@@ -389,3 +389,15 @@
   * The read module was simple because I had done this sort of things many times before. The module that deletes fields was a new challenge. It helped to study my "delete" and "update" module’s code. Browsing through what “delete_one” can do in the online MongoDB documentation, I saw that this only applied to whole objects like documents. This reassured me that what I wanted to do was modify the document using “update_one”. I refreshed myself on MongoDB’s “$set” which resides in my update module. It updates existing keys or creates new ones. Realizing that I want the opposite of this, I began browsing through my MongoDB book and rediscovered “$unset” which does the opposite of “$set”. The end-product is a marriage between my “delete” and “update” module.
 
   * My biggest challenge for the menu was to figure out how to execute my modules from inside the menu. After much searching, I decided to ask for help. A tutor on Slack Chat hinted that one way I can execute my modules is by importing them but did not say how (they never do). I tried importing a module at the top of my code and I noticed that it would run my imported module before executing my menu. After that, I knew what to do: put the import lines with the menu options. The API modules are different, they can’t be started using the imports. After a bit of searching, I learned from a help site on Unix\Linux called NixCraft that I could import the “os” and use “os.system(“command”)” to execute my API’s (Vivec, 2013). I added these lines to my menu options for each API module. I also learned through trial and error that my internal Python files need to be in the directory with the REST API to have the menu fully functional.  
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+  * **References**
+   * ###### Chodorow, K. (2013). _Mongo DB: The definitive guide (2nd ed.)._ O’Reilly Media, Inc. https://www.oreilly.com/library/view/mongodb-the-definitive/9781449344795/
+
+   * ###### Downey, A. (2015). _Think python: How to think like a computer scientist_ (2nd ed.). Green Tea Press. https://greenteapress.com/thinkpython2/html/
+
+   * ###### Vivek, G. (2013, Dec 30). _Python execute unix: Linux command examples._ NixCraft. https://www.cyberciti.biz/faq/python-execute-unix-linux-command-examples/?__cf_chl_captcha_tk__=9bb51b5678d4ae41b922f8e73efc57d23d3559d6-1622059002-0-AcnFbvo4ZSPblHayQIbaQwyGXmPaaL2hezAfnWWm1oyv9ltGtxiXbF5AhKuRswuvjVBfALMQu4h4WOkB2Gzj3PVNgE0tWWENDj254bVYgM2k2gp6_NhPLulaHF6-U1bJb9GLVIcuK54JQlxcgo0TbKwApyZYToLtLN26q0UtOtsWIkufUP9j0VgHckL3ZuWM-TpmyVByMqZeWiD9Nbu8kNQxWViCJiRQ7LbRzGt9zr1D9D3HcMU-RFP3G-ywfC16dspUH_H5CQqUuyHYOzvhtJsd4h5uAQqJIQQsD5sNQekdioAlTzJexg_IbhygV3VDykNa73J5SWNEB1gquBxzYXBUDQsHOYRiBEuzfW1YhcUlmZ28yzKeFjLy4p3zHorQFmJmNndRj-5BoRulc_znV5Gj6-GiJuulchUfQUpkBy9FbVrk1yanKAatmhGu5YuVmbwHSoFYzMhc6HMnde3GH7UGPVwFF2Xg_SwQzhlviYW2eZITo7x6lSsu_iiL1gcTICEyQzKhdxJuwNFJjRotoO0LgDIiZONunnujhus_zkxRBHhN7jPP-qkGSvh_izK7khrtHw4oaS0Mxbc2NjT9THKk0iOpuXhnnJGGTL0hkIwB5ciqJlIAvmgiqvtGK7Ut-fjR0nydRM6DQl3e68cTFBbjNgXDSJDu64Kth7sjUgedo9bHIz3XW23_3b78xv5kRmyk53b2g5u1LLHBFmSDLC_0QhOWX6Zp2h3W9AbHT93l
+
