@@ -1,5 +1,5 @@
 ## Sections
-[Introduction](https://arrioc.github.io/Introduction/) | [Software Design & Engineering](https://arrioc.github.io/Software-Design/) | [Database](https://arrioc.github.io/Portfolio-Database/) | [Old Source Code](https://github.com/Arrioc/CS340_client-server) | [New Source Code](https://github.com/Arrioc/Enhanced-Artifact)
+[Self-Assessment](https://arrioc.github.io/arrioc.github.oi/) | [Introduction](https://arrioc.github.io/Introduction/) | [Software Design & Engineering](https://arrioc.github.io/Software-Design/) | [Algorithms & Data Structures](https://arrioc.github.io/Algorithms-DataStructures/) | [Database](https://arrioc.github.io/Portfolio-Database/) | [Old Source Code](https://github.com/Arrioc/CS340_client-server) | [New Source Code](https://github.com/Arrioc/Enhanced-Artifact)
 
 # Algorithms and Data Structures
 My plan for algorithms and data structures is to add to the complexity of the artifact by creating new algorithms. These algorithms will allow for internal and API module field deletion, internal document retrieval and a menu that allows users to select program services to run.
