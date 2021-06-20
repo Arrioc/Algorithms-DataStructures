@@ -19,63 +19,68 @@ My plan for algorithms and data structures is to add to the complexity of the ar
   * I met the planned objectives for adding to the complexity of the artifact by creating modules whose algorithms allow for field deletion, internal document retrieval and menu execution. The artifact now has web-service and internal modules that let a user delete a field (a key and value) in a document by having the user specify a ticker for querying and a key for deletion using MongoDB’s “$unset” and “update_one”.  The artifact now has an internal module that implements a simple “read” algorithm which queries and presents documents to the user. Finally, the artifact now has a menu which utilizes “while” loops to present the user with choices between internal or web-based services (or to exit), and then presents a list of options to choose from for each service. Internal modules are executed using import lines, while the API modules uses “os.system” program calls. If the user enters invalid input, they will get a “try again” response.
 
   * ## Algorithm for Internal Document Retrieval:
-  * ```python
-    import json
-    from bson import json_util
-    from pymongo import MongoClient, errors
-    from bson.json_util import dumps, loads
+    <details>
+      <summary>Click to expand and view the code!</summary>
 
-    connection = MongoClient('localhost', 27017)
-    db = connection['market']                             
-    collection = db['stocks']                     
+      ```python
+      import json
+      from bson import json_util
+      from pymongo import MongoClient, errors
+      from bson.json_util import dumps, loads
 
-    # This method executes the query and reports on 
-    # whether no file was found, otherwise it outputs 
-    # the document requested or reports any error.
+      connection = MongoClient('localhost', 27017)
+      db = connection['market']                             
+      collection = db['stocks']                     
 
-    #read function
-    def read_document(document):
-      try:
-        myReadResult = collection.find(document)
-        #if specific query exists
-        if (myReadResult.count() != 0):
-          #convert to json and print
-          print(dumps(myReadResult, indent=4, default=json_util.default)) 
-        #if result found 0 matching files  
-        elif (myReadResult.count() == 0):
-          #return error message
-          print("No File Found With That Criteria.")
-        return
-      except errors.PyMongoError as pm:
-        print("MongoDB returned error message", pm)
-        abort(400, str(pm))
-        return
+      # This method executes the query and reports on 
+      # whether no file was found, otherwise it outputs 
+      # the document requested or reports any error.
 
-    # This method takes from the user a ticker 
-    # string, preformats it, and then sends it to
-    # the 'read_document' query function.
+      #read function
+      def read_document(document):
+        try:
+          myReadResult = collection.find(document)
+          #if specific query exists
+          if (myReadResult.count() != 0):
+            #convert to json and print
+            print(dumps(myReadResult, indent=4, default=json_util.default)) 
+          #if result found 0 matching files  
+          elif (myReadResult.count() == 0):
+            #return error message
+            print("No File Found With That Criteria.")
+          return
+        except errors.PyMongoError as pm:
+          print("MongoDB returned error message", pm)
+          abort(400, str(pm))
+          return
 
-    def read_main():
-      print('Please enter capitolized ticker name')
-      #store variable for query                           
-      try:
-        newQuery = (raw_input())                          
-        #format user input                                
-        myQuery = loads("{\"Ticker\" : \""+newQuery+"\"}")
+      # This method takes from the user a ticker 
+      # string, preformats it, and then sends it to
+      # the 'read_document' query function.
 
-      #return error if badly formatted data  
-      except ValueError:
-        print("ValueError: wrongly formatted doc!")
-        return "Error occured"      
-      except TypeError:
-        print("ValueError: wrongly formatted doc!")
-        return "Error occured"
+      def read_main():
+        print('Please enter capitolized ticker name')
+        #store variable for query                           
+        try:
+          newQuery = (raw_input())                          
+          #format user input                                
+          myQuery = loads("{\"Ticker\" : \""+newQuery+"\"}")
 
-      #send to read funtion
-      myReadResult = read_document(myQuery)
+        #return error if badly formatted data  
+        except ValueError:
+          print("ValueError: wrongly formatted doc!")
+          return "Error occured"      
+        except TypeError:
+          print("ValueError: wrongly formatted doc!")
+          return "Error occured"
 
-    read_main()
-    ```
+        #send to read funtion
+        myReadResult = read_document(myQuery)
+
+      read_main()
+      ```
+    </details>
+
    * Internal Document Functionality Segment for a Query: 
    * ![stocks_read, terminal, find doc](https://user-images.githubusercontent.com/73560858/122109109-016f1d80-cdeb-11eb-86a7-db911f958d20.png)
     
@@ -83,78 +88,84 @@ My plan for algorithms and data structures is to add to the complexity of the ar
    * ![stocks_read, terminal, no doc found](https://user-images.githubusercontent.com/73560858/122109266-29f71780-cdeb-11eb-9e52-79359e63caf3.png)
     
   * ## Algorithm for Internal Field Deletion:
-  * ```python
-    import json
-    from bson import json_util
-    from bson.json_util import dumps, loads
-    from pymongo import MongoClient, errors
+    <details>
+      <summary>Click to expand and view the code!</summary>
 
-    connection = MongoClient('localhost', 27017)
-    db = connection['market']
-    collection = db['stocks']
+      ```python
+      import json
+      from bson import json_util
+      from bson.json_util import dumps, loads
+      from pymongo import MongoClient, errors
 
-    # This method queries using the query parameter and executes deletion
-    # on the field using the field parameter, then returns results to main.
+      connection = MongoClient('localhost', 27017)
+      db = connection['market']
+      collection = db['stocks']
 
-    def delete_field(query, newFdel):
-      try:
-        myDeleteResult = collection.update_one(query, newFdel)
-        return myDeleteResult
-      except PyMongoError as pm:
-        print("MongoDB returned error message", pm)
-        abort(400, str(pm))
-        return
+      # This method queries using the query parameter and executes deletion
+      # on the field using the field parameter, then returns results to main.
 
-    # This method takes user ticker input, and checks if it exists.  
-    # If the ticker doesnt exist its reported and the program quits.
-    # If the ticker exists a field name is requested, stored and 
-    # formatted before being sent to the 'delete_field' funtion, 
-    # and then reports on the results sent back from the funtion.
+      def delete_field(query, newFdel):
+        try:
+          myDeleteResult = collection.update_one(query, newFdel)
+          return myDeleteResult
+        except PyMongoError as pm:
+          print("MongoDB returned error message", pm)
+          abort(400, str(pm))
+          return
 
-    def del_field_main():
+      # This method takes user ticker input, and checks if it exists.  
+      # If the ticker doesnt exist its reported and the program quits.
+      # If the ticker exists a field name is requested, stored and 
+      # formatted before being sent to the 'delete_field' funtion, 
+      # and then reports on the results sent back from the funtion.
 
-      #request ticker data for query
-      print('Please enter capitolized Ticker for the document to be modified.')
+      def del_field_main():
 
-      #store variable for query
-      newQuery = (raw_input()) 
+        #request ticker data for query
+        print('Please enter capitolized Ticker for the document to be modified.')
 
-      #format user input                                
-      myQuery = loads("{\"Ticker\" : \""+newQuery+"\"}")
+        #store variable for query
+        newQuery = (raw_input()) 
 
-      #if query found no such ticker, report
-      if (collection.find_one(myQuery) == None):
-        print("Document not found.")
+        #format user input                                
+        myQuery = loads("{\"Ticker\" : \""+newQuery+"\"}")
 
-      #else continue...
-      else:                                                              
-        print('Please enter field to be removed with initial letter capitolized')
+        #if query found no such ticker, report
+        if (collection.find_one(myQuery) == None):
+          print("Document not found.")
 
-        #store field for deletion
-        key = (raw_input())
-        #format & load json for given field     
-        deleteForm = "{\""+key+"\" : \"\"}"  
-        removeField = loads(deleteForm)
+        #else continue...
+        else:                                                              
+          print('Please enter field to be removed with initial letter capitolized')
 
-        #store unset field to be removed 
-        newFieldDel = {"$unset" : removeField}
+          #store field for deletion
+          key = (raw_input())
+          #format & load json for given field     
+          deleteForm = "{\""+key+"\" : \"\"}"  
+          removeField = loads(deleteForm)
 
-        #send query & unset field to 'delete_field' function
-        myDeleteResult = delete_field(myQuery, newFieldDel)
+          #store unset field to be removed 
+          newFieldDel = {"$unset" : removeField}
+
+          #send query & unset field to 'delete_field' function
+          myDeleteResult = delete_field(myQuery, newFieldDel)
 
 
-        #if modify count is 1
-        if (myDeleteResult.modified_count == 1):
-          #show confirmation results
-          print(dumps(myDeleteResult.raw_result))
-          print("Document field has been removed.")
-        else:
-          #show non-confirmation results
-          print(dumps(myDeleteResult.raw_result))
-          print("Document's field could not be found and may have already been removed.")
+          #if modify count is 1
+          if (myDeleteResult.modified_count == 1):
+            #show confirmation results
+            print(dumps(myDeleteResult.raw_result))
+            print("Document field has been removed.")
+          else:
+            #show non-confirmation results
+            print(dumps(myDeleteResult.raw_result))
+            print("Document's field could not be found and may have already been removed.")
 
-    del_field_main()   
-    ```
+      del_field_main()   
+      ```
+
+    </details>
+
    * Internal Field Deletion, File Removed:
    * ![stocks_deleteField, terminal, field removed](https://user-images.githubusercontent.com/73560858/122109889-df29cf80-cdeb-11eb-9336-6353dd4af5a7.png)
     
@@ -168,74 +179,79 @@ My plan for algorithms and data structures is to add to the complexity of the ar
    * ![internap del field database proof](https://user-images.githubusercontent.com/73560858/122121204-5ade4900-cdf9-11eb-97a3-41087a4bf785.png)
   
   * ## Algorithm For API Field Deletion:
-  * ```python
-    import json
-    from bson import json_util
-    from pymongo import MongoClient, errors
-    from bson.json_util import dumps
-    from bottle import get, put, route, run, request, abort
+    <details>
+      <summary>Click to expand and view the code!</summary>
 
-    connection = MongoClient('localhost', 27017)
-    db = connection['market']
-    collection = db['stocks']
+      ```python
+      import json
+      from bson import json_util
+      from pymongo import MongoClient, errors
+      from bson.json_util import dumps
+      from bottle import get, put, route, run, request, abort
 
-    # This method queries using the query parameter and executes deletion
-    # on the field using the field parameter, then returns results to main.
+      connection = MongoClient('localhost', 27017)
+      db = connection['market']
+      collection = db['stocks']
 
-    #delete field function
-    def APIdelete_field(query, newFdel):
-      try:
-        myDeleteResult = collection.update_one(query, newFdel)
-        return myDeleteResult
-      except PyMongoError as pm:
-        print("MongoDB returned error message", pm)
-        abort(400, str(pm))
-        return
+      # This method queries using the query parameter and executes deletion
+      # on the field using the field parameter, then returns results to main.
 
-    # This method takes the ticker from the CURL, and checks its existance.  
-    # If the ticker doesnt exist its reported and the program quits.
-    # If the ticker exists the field name is requested & stored in an 
-    # "unset" statement before being sent to the 'delete_field' funtion. 
-    # The method then reports on the results sent back from the funtion.
+      #delete field function
+      def APIdelete_field(query, newFdel):
+        try:
+          myDeleteResult = collection.update_one(query, newFdel)
+          return myDeleteResult
+        except PyMongoError as pm:
+          print("MongoDB returned error message", pm)
+          abort(400, str(pm))
+          return
 
-    #stocks_del_field:
-    @put('/stocks/api/v1.0/delField')
-    def main_del_field_API():
+      # This method takes the ticker from the CURL, and checks its existance.  
+      # If the ticker doesnt exist its reported and the program quits.
+      # If the ticker exists the field name is requested & stored in an 
+      # "unset" statement before being sent to the 'delete_field' funtion. 
+      # The method then reports on the results sent back from the funtion.
 
-      #get ticker, store as json variable    
-      ticker = request.params.get('ticker')
-      myQuery = {"Ticker" : ticker}
+      #stocks_del_field:
+      @put('/stocks/api/v1.0/delField')
+      def main_del_field_API():
 
-      #if query found no such ticker, report
-      if (collection.find_one(myQuery) == None):
-        print("Document not found.")
+        #get ticker, store as json variable    
+        ticker = request.params.get('ticker')
+        myQuery = {"Ticker" : ticker}
 
-      #else continue...
-      else:                                                              
-        #get key & store          
-        key = request.json["Key"]
+        #if query found no such ticker, report
+        if (collection.find_one(myQuery) == None):
+          print("Document not found.")
 
-        #store unset field to be removed 
-        newFieldDel = {"$unset" : key}
+        #else continue...
+        else:                                                              
+          #get key & store          
+          key = request.json["Key"]
 
-        #send query & unset field to 'delete_field' function
-        myDeleteResult = APIdelete_field(myQuery, newFieldDel)
+          #store unset field to be removed 
+          newFieldDel = {"$unset" : key}
 
-        #if modify count is 1
-        if (myDeleteResult.modified_count == 1):
-          #show confirmation results
-          print(dumps(myDeleteResult.raw_result))
-          print("Document field had been removed.")
-        else:
-          #show non-confirmation results
-          print(dumps(myDeleteResult.raw_result))
-          print("Document's field could not be found and may have already been removed.")
+          #send query & unset field to 'delete_field' function
+          myDeleteResult = APIdelete_field(myQuery, newFieldDel)
 
-    if __name__ == '__main__':
-        run(host='localhost', port=8080, debug=True) 
+          #if modify count is 1
+          if (myDeleteResult.modified_count == 1):
+            #show confirmation results
+            print(dumps(myDeleteResult.raw_result))
+            print("Document field had been removed.")
+          else:
+            #show non-confirmation results
+            print(dumps(myDeleteResult.raw_result))
+            print("Document's field could not be found and may have already been removed.")
 
-    ```
-    
+      if __name__ == '__main__':
+          run(host='localhost', port=8080, debug=True) 
+
+      ```
+
+    </details>
+
    * API Field Deletion, Client-Side URLS:
    * ![terminal, client, APIdeleteField, proof of KM field, 2 removal curls, 1 not found curl, cutdown](https://user-images.githubusercontent.com/73560858/122110926-1f3d8200-cded-11eb-8c9a-4d43fef41886.jpg)
    
@@ -243,144 +259,149 @@ My plan for algorithms and data structures is to add to the complexity of the ar
    * ![terminal, server, APIdeletefield, field removed, field already removed, field not found](https://user-images.githubusercontent.com/73560858/122110819-f9b07880-cdec-11eb-83b1-76ffb026aee9.png)
    
   * ## Algorithm For The Menu:
-  * ```python
-    import os
+    <details>
+      <summary>Click to expand and view the code!</summary>
 
-    # This method provides an initial menu that 
-    # allows the user to chose between internal 
-    # and web based services.
+      ```python
+      import os
 
-    def main_menu():
-      reply = True
-      print('Welcome to Kilbourne Financial\'s Stock Market Services. \nPlease select from the following:')
-      #let user chooses from two types of services
-      while reply:
-        print("""
-        1 Internal services
-        2 Web services
-        3 Exit """)
+      # This method provides an initial menu that 
+      # allows the user to chose between internal 
+      # and web based services.
 
-        reply = raw_input()
+      def main_menu():
+        reply = True
+        print('Welcome to Kilbourne Financial\'s Stock Market Services. \nPlease select from the following:')
+        #let user chooses from two types of services
+        while reply:
+          print("""
+          1 Internal services
+          2 Web services
+          3 Exit """)
 
-        if (reply == '1'):
-          print("You chose internal services")
-          internal()
-        elif (reply == '2'):
-          print("You chose web services")
-          webService()
-        elif (reply == '3'):
-          print('Goodbye, have a great day!') 
-          reply = False
-        else:
-          print('Does not compute! Try agian.')
+          reply = raw_input()
 
-    # This method provides services through the internal service
-    # by taking a selection from the user and then executing 
-    # the chosen module. When finished we return to the main menu
+          if (reply == '1'):
+            print("You chose internal services")
+            internal()
+          elif (reply == '2'):
+            print("You chose web services")
+            webService()
+          elif (reply == '3'):
+            print('Goodbye, have a great day!') 
+            reply = False
+          else:
+            print('Does not compute! Try agian.')
 
-    def internal():
-      select = True
-      print('Welcome to internal services. \nPlease choose from the following:')
-      #let user chose from different internal services
-      while select:
-        print("""
-        1 Create a new stock document
-        2 Update a document
-        3 Delete a document
-        4 Delete a document's field
-        5 Find a document
-        6 Report on 50-Day Simple Moving Average
-        7 Get an industry's ticker symbol list
-        8 Report on a sector's total oustanding shares
-        9 Exit to main menu
-        """)
+      # This method provides services through the internal service
+      # by taking a selection from the user and then executing 
+      # the chosen module. When finished we return to the main menu
 
-        select = raw_input()
+      def internal():
+        select = True
+        print('Welcome to internal services. \nPlease choose from the following:')
+        #let user chose from different internal services
+        while select:
+          print("""
+          1 Create a new stock document
+          2 Update a document
+          3 Delete a document
+          4 Delete a document's field
+          5 Find a document
+          6 Report on 50-Day Simple Moving Average
+          7 Get an industry's ticker symbol list
+          8 Report on a sector's total oustanding shares
+          9 Exit to main menu
+          """)
 
-        if (select == '1'):
-          print("You chose create a stock document")
-          from stocks_create import create_main
-        elif (select == '2'):
-          print("You chose update document")
-          from stocks_update import modify_main
-        elif (select == '3'):
-          print("You chose delete doument")
-          from stocks_delete import delete_main
-        elif (select == '4'):
-          print("You chose delete document field")
-          from stocks_deleteField import del_field_main
-        elif (select == '5'):
-          print("You chose find document")
-          from stocks_read import read_main
-        elif (select == '6'):
-          print("You chose report 50-Day SMA")
-          from stocks_read1 import read1_main
-        elif (select == '7'):
-          print("You chose Get industry ticker list")
-          from stocks_read2 import read2_main
-        elif (select == '8'):
-          print("You chose report on a sector's total oustanding shares")
-          from stocks_read3 import read3_main
-        elif (select == '9'):
-          print('Exiting') 
-          select = False
-        else:
-          print('Does not compute! Try again')
+          select = raw_input()
 
-    # This method provides services through the web service
-    # by taking a selection from the user and then executing 
-    # the chosen module
+          if (select == '1'):
+            print("You chose create a stock document")
+            from stocks_create import create_main
+          elif (select == '2'):
+            print("You chose update document")
+            from stocks_update import modify_main
+          elif (select == '3'):
+            print("You chose delete doument")
+            from stocks_delete import delete_main
+          elif (select == '4'):
+            print("You chose delete document field")
+            from stocks_deleteField import del_field_main
+          elif (select == '5'):
+            print("You chose find document")
+            from stocks_read import read_main
+          elif (select == '6'):
+            print("You chose report 50-Day SMA")
+            from stocks_read1 import read1_main
+          elif (select == '7'):
+            print("You chose Get industry ticker list")
+            from stocks_read2 import read2_main
+          elif (select == '8'):
+            print("You chose report on a sector's total oustanding shares")
+            from stocks_read3 import read3_main
+          elif (select == '9'):
+            print('Exiting') 
+            select = False
+          else:
+            print('Does not compute! Try again')
 
-    def webService():
+      # This method provides services through the web service
+      # by taking a selection from the user and then executing 
+      # the chosen module
 
-      select = True
-      print('Welcome to internal services. \nPlease choose from the following:')
-      #let user chose from different internal services
-      while select:
-        print("""
-        1 Create a new stock document
-        2 Update a document
-        3 Delete a document
-        4 Delete a document's field
-        5 Find a document
-        6 Find multiple documents
-        7 Create industry report
-        8 Exit to main menu
-        """)
+      def webService():
 
-        select = raw_input()
+        select = True
+        print('Welcome to internal services. \nPlease choose from the following:')
+        #let user chose from different internal services
+        while select:
+          print("""
+          1 Create a new stock document
+          2 Update a document
+          3 Delete a document
+          4 Delete a document's field
+          5 Find a document
+          6 Find multiple documents
+          7 Create industry report
+          8 Exit to main menu
+          """)
 
-        if (select == '1'):
-          print("You chose create a stock document")
-          os.system("python APIcreate.py")
-        elif (select == '2'):
-          print("You chose update document")
-          os.system("python APIupdate.py")
-        elif (select == '3'):
-          print("You chose delete doument")
-          os.system("python APIdelete.py")
-        elif (select == '4'):
-          print("You chose delete document field")
-          os.system("python APIdeleteField.py")
-        elif (select == '5'):
-          print("You chose find document")
-          os.system("python APIread.py")
-        elif (select == '6'):
-          print("You chose find multiple documents")
-          os.system("python APIstockReport.py")
-        elif (select == '7'):
-          print("You chose create industry report")
-          os.system("python APIindustryReport.py")
-        elif (select == '8'):
-          print('Exiting') 
-          select = False
-        else:
-          print('Does not compute! Try agian.')
+          select = raw_input()
+
+          if (select == '1'):
+            print("You chose create a stock document")
+            os.system("python APIcreate.py")
+          elif (select == '2'):
+            print("You chose update document")
+            os.system("python APIupdate.py")
+          elif (select == '3'):
+            print("You chose delete doument")
+            os.system("python APIdelete.py")
+          elif (select == '4'):
+            print("You chose delete document field")
+            os.system("python APIdeleteField.py")
+          elif (select == '5'):
+            print("You chose find document")
+            os.system("python APIread.py")
+          elif (select == '6'):
+            print("You chose find multiple documents")
+            os.system("python APIstockReport.py")
+          elif (select == '7'):
+            print("You chose create industry report")
+            os.system("python APIindustryReport.py")
+          elif (select == '8'):
+            print('Exiting') 
+            select = False
+          else:
+            print('Does not compute! Try agian.')
 
 
-    main_menu()
-    ```
-    
+      main_menu()
+      ```
+
+</details>
+
    * Menu Initiation, Internal Menu Selection, and Exiting:
    * ![initial menu, internal selection, item selection2](https://user-images.githubusercontent.com/73560858/122112450-dab2e600-cdee-11eb-9c90-1fe75e5a7e4d.png)
    
