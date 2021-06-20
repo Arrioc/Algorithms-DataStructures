@@ -76,7 +76,7 @@ My plan for algorithms and data structures is to add to the complexity of the ar
 
     read_main()
     ```
-   * Internal Document Functionality for a Query: 
+   * Internal Document Functionality Segment for a Query: 
    * ![stocks_read, terminal, find doc](https://user-images.githubusercontent.com/73560858/122109109-016f1d80-cdeb-11eb-86a7-db911f958d20.png)
     
    * Internal Document Functionality for a Nonexistent Document:
