@@ -256,7 +256,7 @@ My plan for algorithms and data structures is to add to the complexity of the ar
    * ![terminal, client, APIdeleteField, proof of KM field, 2 removal curls, 1 not found curl better](https://user-images.githubusercontent.com/73560858/122688202-e0426e80-d1e8-11eb-9e25-a0f14c4f1660.png)
    
    * API Field Deletion; File Removed, File Already Removed, File Not Found:
-   * ![terminal, server, APIdeletefield, field removed, field already removed, field not found](https://user-images.githubusercontent.com/73560858/122110819-f9b07880-cdec-11eb-83b1-76ffb026aee9.png)
+   * ![terminal, server, APIdeletefield, field removed, field already removed, field not found, better](https://user-images.githubusercontent.com/73560858/122688347-bc335d00-d1e9-11eb-9367-9285bbfc628c.png)
 
   * ## Algorithm For The Menu:
     <details>
