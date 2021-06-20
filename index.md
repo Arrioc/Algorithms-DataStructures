@@ -166,13 +166,13 @@ My plan for algorithms and data structures is to add to the complexity of the ar
 
     </details>
 
-   * Internal Field Deletion, File Removed:
+   * Internal Field Deletion, Field Removed:
    * ![stocks_deleteField, terminal, field removed](https://user-images.githubusercontent.com/73560858/122109889-df29cf80-cdeb-11eb-9336-6353dd4af5a7.png)
     
-   * Internal Field Deletion, File Already Removed:
+   * Internal Field Deletion, Field Already Removed:
    * ![stocks_deleteField, terminal, field already removed](https://user-images.githubusercontent.com/73560858/122110040-126c5e80-cdec-11eb-8722-4e4a9ee87914.png)
    
-   * Internal Field Deletion, File Not Found:
+   * Internal Field Deletion, Document Not Found:
    * ![stocks_deleteField, terminal, ticker not found](https://user-images.githubusercontent.com/73560858/122110184-3fb90c80-cdec-11eb-8534-969d013e449d.png)
  
    * Internal Field Deletion, Database Before & After:
