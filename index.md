@@ -86,7 +86,7 @@ My plan for algorithms and data structures is to add to the complexity of the ar
     
    * Internal Document Functionality for a Nonexistent Document:
    * ![stocks_read, terminal, no doc found](https://user-images.githubusercontent.com/73560858/122109266-29f71780-cdeb-11eb-9e52-79359e63caf3.png)
-    
+
   * ## Algorithm for Internal Field Deletion:
     <details>
       <summary>Click to expand and view the code!</summary>
@@ -402,12 +402,8 @@ My plan for algorithms and data structures is to add to the complexity of the ar
 
     </details>
 
-&nbsp;
-
    * Menu Initiation, Internal Menu Selection, and Exiting:
    * ![initial menu, internal selection, item selection2](https://user-images.githubusercontent.com/73560858/122112450-dab2e600-cdee-11eb-9c90-1fe75e5a7e4d.png)
-
-&nbsp;
 
    * Menu Initiation, Web-Service Menu Selection, and Exiting:
    * ![menu, web service selection and exiting](https://user-images.githubusercontent.com/73560858/122112685-19e13700-cdef-11eb-912f-c18b42c79341.png)
