@@ -408,6 +408,16 @@ My plan for algorithms and data structures is to add to the complexity of the ar
    * Menu Initiation, Web-Service Menu Selection, and Exiting:
    * ![menu, web service selection and exiting](https://user-images.githubusercontent.com/73560858/122112685-19e13700-cdef-11eb-912f-c18b42c79341.png)
    
+   * Main Menu, on Bad Entry:
+   * ![main menu, bad entry](https://user-images.githubusercontent.com/73560858/123115498-262c4c00-d40e-11eb-81bc-374dc648a692.png)
+   
+   * Internal Menu, on Bad Entry:
+   * ![internal menu, bad entry](https://user-images.githubusercontent.com/73560858/123115593-380def00-d40e-11eb-948a-5b817b0ecd48.png)
+   
+   * Web Service Menu, on Bad Entry:
+   * ![web services menu, bad entry](https://user-images.githubusercontent.com/73560858/123115679-44924780-d40e-11eb-806d-035fded9948d.png)
+   
+   
 * ## Reflecting on the Process
   * The read module was simple because I had done this sort of things many times before. The module that deletes fields was a new challenge. It helped to study my "delete" and "update" module’s code. Browsing through what “delete_one” can do in the online MongoDB documentation, I saw that this only applied to whole objects like documents. This reassured me that what I wanted to do was modify the document using “update_one”. I refreshed myself on MongoDB’s “$set” which resides in my update module. It updates existing keys or creates new ones. Realizing that I want the opposite of this, I began browsing through my MongoDB book and rediscovered “$unset” which does the opposite of “$set”. The end-product is a marriage between my “delete” and “update” module.
 
